@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shaki Shop — Mode Féminine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --rose:#E8416B;--rose2:#FF6B8E;--rose3:#FFE4ED;
+  --dark:#1A0810;--cream:#FFF8F2;--sand:#F5E8D8;
+  --gold:#D4972A;--muted:#9A6B7A;--text:#2D1018;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+
+/* ─── URGENCE BANDEAU ─── */
+.urgence{
+  background:var(--rose);color:#fff;
+  text-align:center;padding:10px 20px;
+  font-size:13px;font-weight:500;letter-spacing:.04em;
+  position:sticky;top:0;z-index:999;
+}
+.urgence strong{font-weight:700}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:100svh;
+  background:var(--dark);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  padding:60px 24px 80px;
+  position:relative;overflow:hidden;
+}
+/* pagne texture background */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(232,65,107,.18) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(212,151,42,.12) 0%, transparent 60%);
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rose2);margin-bottom:24px;
+  border:1px solid rgba(232,65,107,.3);
+  padding:6px 16px;border-radius:100px;
+  opacity:0;animation:up .6s ease .1s forwards;
+}
+.hero h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(48px,12vw,96px);
+  font-weight:900;line-height:.92;color:#fff;
+  margin-bottom:12px;
+  opacity:0;animation:up .6s ease .25s forwards;
+}
+.hero h1 em{
+  display:block;font-style:italic;
+  color:var(--rose2);
+}
+.hero-sub{
+  font-size:clamp(15px,2.5vw,18px);color:rgba(255,255,255,.55);
+  line-height:1.65;max-width:480px;margin:0 auto 40px;
+  opacity:0;animation:up .6s ease .4s forwards;
+}
+.hero-sub strong{color:var(--rose2);font-weight:600}
+
+/* ─ CTA principal ─ */
+.cta-main{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--rose);color:#fff;
+  padding:18px 42px;border-radius:4px;
+  font-size:15px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  text-decoration:none;
+  box-shadow:0 16px 48px rgba(232,65,107,.5);
+  transition:all .3s;
+  opacity:0;animation:up .6s ease .55s forwards;
+}
+.cta-main:hover{background:#C52E57;transform:translateY(-3px);box-shadow:0 24px 60px rgba(232,65,107,.6)}
+.cta-main .arrow{font-size:20px;transition:transform .3s}
+.cta-main:hover .arrow{transform:translateX(4px)}
+
+.hero-proof{
+  display:flex;align-items:center;gap:12px;margin-top:28px;
+  color:rgba(255,255,255,.4);font-size:13px;
+  opacity:0;animation:up .6s ease .7s forwards;
+}
+.hero-proof .stars{color:var(--gold);letter-spacing:2px;font-size:16px}
+
+/* flottant photo */
+.hero-float{
+  position:absolute;right:5%;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:12px;
+  opacity:0;animation:fadeSlide .8s ease .9s forwards;
+}
+.hf-card{
+  background:rgba(255,255,255,.06);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:8px;padding:12px 16px;
+  display:flex;align-items:center;gap:10px;
+  color:#fff;font-size:13px;white-space:nowrap;
+}
+.hf-card .ic{font-size:22px}
+.hf-card small{display:block;font-size:10px;color:rgba(255,255,255,.4);margin-top:1px}
+
+/* ─── MARQUEE ─── */
+.mq{background:var(--rose);overflow:hidden;padding:11px 0}
+.mq-t{display:flex;animation:mq 16s linear infinite;white-space:nowrap}
+.mq-i{
+  display:inline-flex;align-items:center;gap:16px;
+  padding:0 20px;font-size:11px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:#fff;
+}
+.mq-d{width:3px;height:3px;background:rgba(255,255,255,.5);border-radius:50%}
+
+/* ─── SECTION WRAPPER ─── */
+.s{padding:80px 24px}
+.s-inner{max-width:900px;margin:0 auto}
+.s-tag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--rose);
+  display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.s-tag::after{content:'';width:28px;height:1px;background:var(--rose)}
+.s-h{font-family:'Cormorant Garamond',serif;
+  font-size:clamp(32px,5vw,52px);font-weight:700;
+  line-height:1.05;color:var(--dark);margin-bottom:8px}
+.s-h em{font-style:italic;color:var(--rose)}
+.s-sub{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:48px;max-width:520px}
+
+/* ─── PRODUITS ─── */
+.produits-bg{background:var(--cream)}
+.prod-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:16px;
+}
+/* grand produit hero */
+.prod-hero{grid-column:1/3;grid-row:1/3}
+.prod-card{
+  background:var(--sand);border-radius:8px;
+  overflow:hidden;position:relative;
+  transition:transform .3s,box-shadow .3s;
+}
+.prod-card:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(232,65,107,.15)}
+.prod-img{
+  display:flex;align-items:center;justify-content:center;
+  font-size:56px;
+  background:linear-gradient(135deg,var(--sand),#EDD5BE);
+  transition:transform .5s;
+}
+.prod-card:hover .prod-img{transform:scale(1.04)}
+.prod-hero .prod-img{height:320px;font-size:110px}
+.prod-card:not(.prod-hero) .prod-img{height:160px}
+.prod-info{padding:16px 18px 20px}
+.prod-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--dark)}
+.prod-card:not(.prod-hero) .prod-name{font-size:16px}
+.prod-price{font-size:14px;font-weight:700;color:var(--rose);margin-top:4px}
+.prod-badge{
+  position:absolute;top:14px;left:14px;
+  background:var(--rose);color:#fff;
+  font-size:9px;font-weight:800;letter-spacing:.14em;
+  text-transform:uppercase;padding:5px 10px;border-radius:2px;
+}
+.prod-badge.gold{background:var(--gold)}
+.prod-cta-sm{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:10px;font-size:12px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--rose);text-decoration:none;
+  transition:gap .2s;
+}
+.prod-cta-sm:hover{gap:10px}
+
+/* 2e rangée */
+.prod-grid-2{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:16px;margin-top:16px;
+}
+.prod-grid-2 .prod-img{height:130px;font-size:44px}
+.prod-grid-2 .prod-name{font-size:14px}
+.prod-grid-2 .prod-price{font-size:12px}
+
+/* ─── CTA MILIEU ─── */
+.cta-mid{
+  background:var(--rose3);
+  padding:64px 24px;text-align:center;
+}
+.cta-mid-inner{max-width:560px;margin:0 auto}
+.cta-mid h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(32px,5vw,50px);font-weight:700;
+  color:var(--dark);line-height:1.05;margin-bottom:16px;
+}
+.cta-mid h2 em{font-style:italic;color:var(--rose)}
+.cta-mid p{font-size:15px;color:var(--muted);margin-bottom:36px;line-height:1.7}
+/* cta reuse */
+
+/* ─── COMMENT COMMANDER ─── */
+.steps-bg{background:var(--dark)}
+.steps-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:32px;margin-top:48px;
+}
+.step{text-align:center;padding:32px 24px}
+.step-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:64px;font-weight:900;
+  line-height:1;
+  background:linear-gradient(135deg,var(--rose),var(--rose2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:16px;
+}
+.step h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:10px}
+.step p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.7}
+
+/* ─── AVIS ─── */
+.avis-bg{background:var(--sand)}
+.avis-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:48px}
+.av{
+  background:var(--cream);border-radius:8px;
+  padding:28px 24px;position:relative;
+  transition:transform .3s,box-shadow .3s;
+}
+.av:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(232,65,107,.1)}
+.av::before{
+  content:'"';position:absolute;top:10px;right:18px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:64px;color:var(--rose);opacity:.1;line-height:1;
+}
+.av-stars{color:var(--gold);font-size:12px;letter-spacing:3px;margin-bottom:12px}
+.av-text{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:20px}
+.av-who{display:flex;align-items:center;gap:10px}
+.av-av{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--rose);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px;font-weight:700;flex-shrink:0;
+}
+.av-name{font-size:13px;font-weight:600;color:var(--dark)}
+.av-loc{font-size:11px;color:var(--muted)}
+
+/* ─── CTA FINAL ─── */
+.cta-final{
+  background:var(--dark);
+  padding:100px 24px;
+  text-align:center;position:relative;overflow:hidden;
+}
+.cta-final::before{
+  content:'SHAKI SHOP';
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(60px,15vw,180px);font-weight:900;
+  color:rgba(255,255,255,.02);white-space:nowrap;pointer-events:none;
+}
+.cta-final-inner{max-width:600px;margin:0 auto;position:relative;z-index:2}
+.cta-final h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(40px,6vw,68px);font-weight:900;
+  line-height:.95;color:#fff;margin-bottom:20px;
+}
+.cta-final h2 em{font-style:italic;color:var(--rose2);display:block}
+.cta-final p{font-size:15px;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:44px}
+.cta-stack{display:flex;flex-direction:column;align-items:center;gap:14px}
+.cta-wa{
+  display:inline-flex;align-items:center;gap:12px;
+  background:#25D366;color:#fff;
+  padding:18px 48px;border-radius:4px;
+  font-size:15px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  text-decoration:none;width:100%;max-width:380px;justify-content:center;
+  box-shadow:0 12px 40px rgba(37,211,102,.35);
+  transition:all .3s;
+}
+.cta-wa:hover{background:#1EB858;transform:translateY(-2px);box-shadow:0 20px 50px rgba(37,211,102,.45)}
+.cta-fb{
+  display:inline-flex;align-items:center;gap:10px;
+  border:1.5px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.6);padding:16px 48px;border-radius:4px;
+  font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;width:100%;max-width:380px;justify-content:center;
+  transition:all .3s;
+}
+.cta-fb:hover{border-color:rgba(255,255,255,.4);color:#fff}
+
+/* footer mini */
+.foot{
+  background:#0D040A;padding:24px;
+  text-align:center;
+  font-size:12px;color:#3D1A28;
+  border-top:1px solid rgba(232,65,107,.08);
+}
+.foot strong{color:var(--rose)}
+
+/* wa pulse fixe */
+.wa-pulse{
+  position:fixed;bottom:28px;right:28px;z-index:800;
+  width:56px;height:56px;border-radius:50%;
+  background:#25D366;display:flex;align-items:center;justify-content:center;
+  font-size:26px;text-decoration:none;
+  box-shadow:0 6px 24px rgba(37,211,102,.4);
+  animation:pulse 2.5s ease-in-out infinite;
+}
+.wa-pulse:hover{transform:scale(1.12)}
+
+/* ─── ANIMATIONS ─── */
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeSlide{from{opacity:0;transform:translate(20px,-50%)}to{opacity:1;transform:translate(0,-50%)}}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes pulse{0%,100%{box-shadow:0 6px 24px rgba(37,211,102,.4)}50%{box-shadow:0 6px 40px rgba(37,211,102,.7)}}
+.r{opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s}
+.r.v{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* ─── MOBILE ─── */
+@media(max-width:700px){
+  .hero{min-height:auto;padding:70px 20px 80px}
+  .hero-float{display:none}
+  .prod-grid{grid-template-columns:1fr 1fr}
+  .prod-hero{grid-column:1/3;grid-row:auto}
+  .prod-grid-2{grid-template-columns:1fr 1fr}
+  .steps-grid{grid-template-columns:1fr}
+  .avis-grid{grid-template-columns:1fr}
+  .s{padding:60px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- WA flottant -->
+<a class="wa-pulse" href="https://wa.me/22600000000" title="Commander">💬</a>
+
+<!-- URGENCE -->
+<div class="urgence">
+  🔥 <strong>Offre limitée :</strong> Livraison GRATUITE sur toute commande cette semaine — Profites-en maintenant !
+</div>
+
+<!-- ════ HERO ════ -->
+<section class="hero">
+  <span class="hero-tag">✦ Shaki Shop · Mode Féminine · Ouagadougou</span>
+  <h1>Tu mérites<br><em>de rayonner</em></h1>
+  <p class="hero-sub">
+    Tenues africaines couturées, robes tendance, chaussures & plus —
+    <strong>des prix qui sourient, un style qui parle.</strong>
+  </p>
+  <a href="https://wa.me/22600000000" class="cta-main">
+    💬 Commander maintenant <span class="arrow">→</span>
+  </a>
+  <div class="hero-proof">
+    <span class="stars">★★★★★</span>
+    <span>500+ clientes satisfaites à Ouagadougou</span>
+  </div>
+
+  <!-- cartes flottantes côté -->
+  <div class="hero-float">
+    <div class="hf-card"><span class="ic">📦</span><div><div>Livraison rapide</div><small>Ouaga & environs</small></div></div>
+    <div class="hf-card"><span class="ic">💳</span><div><div>Paiement flexible</div><small>Mobile Money accepté</small></div></div>
+    <div class="hf-card"><span class="ic">✅</span><div><div>Qualité garantie</div><small>Ou remboursée</small></div></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq">
+  <div class="mq-t">
+    <span class="mq-i">Habaya Cousu <span class="mq-d"></span></span>
+    <span class="mq-i">Robe Sexy <span class="mq-d"></span></span>
+    <span class="mq-i">Jogging Motifs <span class="mq-d"></span></span>
+    <span class="mq-i">Cargo Style <span class="mq-d"></span></span>
+    <span class="mq-i">Top Crocs 2 000 F <span class="mq-d"></span></span>
+    <span class="mq-i">Chaussures Mousse 4 500 F <span class="mq-d"></span></span>
+    <span class="mq-i">Livraison Gratuite cette semaine <span class="mq-d"></span></span>
+    <span class="mq-i">Habaya Cousu <span class="mq-d"></span></span>
+    <span class="mq-i">Robe Sexy <span class="mq-d"></span></span>
+    <span class="mq-i">Jogging Motifs <span class="mq-d"></span></span>
+    <span class="mq-i">Cargo Style <span class="mq-d"></span></span>
+    <span class="mq-i">Top Crocs 2 000 F <span class="mq-d"></span></span>
+    <span class="mq-i">Chaussures Mousse 4 500 F <span class="mq-d"></span></span>
+    <span class="mq-i">Livraison Gratuite cette semaine <span class="mq-d"></span></span>
+  </div>
+</div>
+
+<!-- ════ PRODUITS ════ -->
+<section class="s produits-bg">
+  <div class="s-inner">
+    <p class="s-tag r">Ce qu'on propose</p>
+    <h2 class="s-h r d1">Nos articles <em>du moment</em></h2>
+    <p class="s-sub r d2">Clique sur un article et commande directement via WhatsApp. On te répond en quelques minutes !</p>
+
+    <div class="prod-grid r d1">
+      <!-- Hero produit -->
+      <div class="prod-card prod-hero">
+        <div class="prod-img">👗</div>
+        <div class="prod-badge gold">⭐ Best-seller</div>
+        <div class="prod-info">
+          <div class="prod-name">Habaya Cousu Sur Mesure</div>
+          <div class="prod-price">Prix sur demande · Personnalisé pour toi</div>
+          <a href="https://wa.me/22600000000?text=Bonjour, je veux commander un Habaya cousu" class="prod-cta-sm">Commander → </a>
+        </div>
+      </div>
+      <!-- Produit 2 -->
+      <div class="prod-card r d2">
+        <div class="prod-img">💃</div>
+        <div class="prod-badge">Tendance</div>
+        <div class="prod-info">
+          <div class="prod-name">Robe Sexy</div>
+          <div class="prod-price">Prix sur demande</div>
+          <a href="https://wa.me/22600000000?text=Bonjour, je veux commander une Robe Sexy" class="prod-cta-sm">Commander →</a>
+        </div>
+      </div>
+      <!-- Produit 3 -->
+      <div class="prod-card r d3">
+        <div class="prod-img">🩱</div>
+        <div class="prod-info">
+          <div class="prod-name">Jogging Motifs</div>
+          <div class="prod-price">5 000 F CFA</div>
+          <a href="https://wa.me/22600000000?text=Bonjour, je veux commander un Jogging Motifs" class="prod-cta-sm">Commander →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-grid-2 r">
+      <div class="prod-card">
+        <div class="prod-img">🥿</div>
+        <div class="prod-info">
+          <div class="prod-name">Chaussures Mousse</div>
+          <div class="prod-price">4 500 F CFA</div>
+          <a href="https://wa.me/22600000000?text=Je veux commander les Chaussures Mousse" class="prod-cta-sm">→</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img">👕</div>
+        <div class="prod-info">
+          <div class="prod-name">Top Crocs</div>
+          <div class="prod-price">2 000 F CFA</div>
+          <a href="https://wa.me/22600000000?text=Je veux commander un Top Crocs" class="prod-cta-sm">→</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img">👖</div>
+        <div class="prod-info">
+          <div class="prod-name">Cargo</div>
+          <div class="prod-price">Prix sur demande</div>
+          <a href="https://wa.me/22600000000?text=Je veux commander un Cargo" class="prod-cta-sm">→</a>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img">🧕</div>
+        <div class="prod-badge">Nouveau</div>
+        <div class="prod-info">
+          <div class="prod-name">Habaya Prêt-à-porter</div>
+          <div class="prod-price">Prix sur demande</div>
+          <a href="https://wa.me/22600000000?text=Je veux commander un Habaya" class="prod-cta-sm">→</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CTA MILIEU ════ -->
+<div class="cta-mid">
+  <div class="cta-mid-inner r">
+    <h2>Tu hésites encore ?<br><em>Écris-nous, c'est gratuit !</em></h2>
+    <p>Pas besoin de remplir un formulaire. Un simple message WhatsApp suffit — on te guide pour choisir ta taille, ta couleur, et on confirme ta commande.</p>
+    <a href="https://wa.me/22600000000?text=Bonjour Shaki Shop, je veux voir vos articles !" class="cta-main" style="margin:0 auto;display:inline-flex">
+      💬 Écrire sur WhatsApp <span class="arrow">→</span>
+    </a>
+  </div>
+</div>
+
+<!-- ════ COMMENT COMMANDER ════ -->
+<section class="s steps-bg">
+  <div class="s-inner">
+    <p class="s-tag r" style="color:var(--rose2)">Simple comme bonjour</p>
+    <h2 class="s-h r d1" style="color:#fff">Commander en <em>3 étapes</em></h2>
+    <div class="steps-grid">
+      <div class="step r d1">
+        <div class="step-num">01</div>
+        <h3>Tu choisis</h3>
+        <p>Parcours les articles sur cette page ou demande-nous le catalogue complet sur WhatsApp.</p>
+      </div>
+      <div class="step r d2">
+        <div class="step-num">02</div>
+        <h3>Tu écris</h3>
+        <p>Envoie-nous le nom de l'article, ta taille et ta couleur préférée sur WhatsApp. On confirme en quelques minutes.</p>
+      </div>
+      <div class="step r d3">
+        <div class="step-num">03</div>
+        <h3>Tu reçois</h3>
+        <p>On livre chez toi à Ouagadougou ou tu passes récupérer. Paiement à la livraison possible.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ AVIS ════ -->
+<section class="s avis-bg">
+  <div class="s-inner">
+    <p class="s-tag r">Elles ont commandé</p>
+    <h2 class="s-h r d1">Ce qu'elles <em>disent de nous</em></h2>
+    <div class="avis-grid">
+      <div class="av r d1">
+        <div class="av-stars">★★★★★</div>
+        <p class="av-text">Mon habaya cousu est exactement ce que je voulais. Shaki Shop a tout compris dès le premier message. Je recommande à 100% !</p>
+        <div class="av-who">
+          <div class="av-av">A</div>
+          <div><div class="av-name">Aminata S.</div><div class="av-loc">Ouagadougou · Habaya cousu</div></div>
+        </div>
+      </div>
+      <div class="av r d2">
+        <div class="av-stars">★★★★★</div>
+        <p class="av-text">Les chaussures mousse pour 4500 F, c'est incroyable ! Super confortables, belles et rapides à livrer. J'ai déjà recommandé à mes amies.</p>
+        <div class="av-who">
+          <div class="av-av">F</div>
+          <div><div class="av-name">Fatoumata D.</div><div class="av-loc">Pissy · Chaussures mousse</div></div>
+        </div>
+      </div>
+      <div class="av r d3">
+        <div class="av-stars">★★★★★</div>
+        <p class="av-text">J'ai pris la robe pour un baptême, tout le monde me demandait où je l'avais achetée. Shaki Shop c'est sérieux et les prix sont vrais !</p>
+        <div class="av-who">
+          <div class="av-av">M</div>
+          <div><div class="av-name">Mariam O.</div><div class="av-loc">Gounghin · Robe</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CTA FINAL ════ -->
+<section class="cta-final">
+  <div class="cta-final-inner r">
+    <h2>
+      Prête à être
+      <em>la plus belle ?</em>
+    </h2>
+    <p>Des centaines de femmes à Ouagadougou font déjà confiance à Shaki Shop. C'est ton tour. Un message et c'est parti !</p>
+    <div class="cta-stack">
+      <a href="https://wa.me/22600000000?text=Bonjour Shaki Shop ! Je veux commander 🛍️" class="cta-wa">
+        💬 Commander sur WhatsApp
+      </a>
+      <a href="https://www.facebook.com/" class="cta-fb">
+        Voir notre page Facebook →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER mini -->
+<div class="foot">
+  © 2026 <strong>Shaki Shop</strong> · Mode Féminine · Ouagadougou, Burkina Faso &nbsp;|&nbsp;
+  Site créé par <strong>ton nom ici</strong>
+</div>
+
+<script>
+// Scroll reveal
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');ro.unobserve(x.target)}})},{threshold:.12});
+document.querySelectorAll('.r').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>
